@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(Header("Выбери экзамен"), alignment=Qt.AlignmentFlag.AlignHCenter)
 
         for name, application in APPS.items():
-            buttons.addWidget(MainButton(name, application, self))
+            buttons.addWidget(MainButton(name, application, parent=self))
 
         main_layout.addLayout(buttons)
 

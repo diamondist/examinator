@@ -1,5 +1,23 @@
-from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QCheckBox
 
+from src.utils import Header, MainButton
+
+
+class MockNext:
+    def launch(self, parent):
+        print('launched')
+        # parent.hide()
+        parent.close()
+
+class CheckBox(QCheckBox):
+    def __init__(self, text):
+        super().__init__()
+        self.setText(text)
+        self.setFixedSize(QSize(100, 50))
+        self.setFont(QFont('Arial', 36))
+        self.setStyleSheet("QCheckBox::indicator { width: 50px; height: 50px;}")
 
 
 class SettingsWindow(QWidget):
@@ -7,8 +25,23 @@ class SettingsWindow(QWidget):
         super().__init__()
         self.setWindowTitle("Таблица умножения")
 
+        main_layout = QVBoxLayout()
+
+        main_layout.addWidget(Header("Выбери множители"), alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        boxes = QHBoxLayout()
+        for i in range(2, 10):
+            boxes.addWidget(CheckBox(str(i)))
+
+
+
+        main_layout.addLayout(boxes)
+
+        main_layout.addWidget(MainButton("Начать экзамен", MockNext, parent=self),
+                              alignment=Qt.AlignmentFlag.AlignHCenter)
+
+        self.setLayout(main_layout)
 
     def launch(self, parent):
         parent.hide()
         self.showMaximized()
-

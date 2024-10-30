@@ -2,6 +2,8 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QPushButton, QVBoxLayout, QLabel
 
+from src.apps.di import APPS
+
 
 class Header(QLabel):
     def __init__(self, text):
@@ -13,17 +15,13 @@ class Header(QLabel):
 
 
 class MainButton(QPushButton):
-    def __init__(self, text):
+    def __init__(self, text, application, main_window):
         super().__init__()
         self.setText(text)
         self.setFixedSize(500, 50)
         self.setFont(QFont('Arial', 16))
-
-
-class Multi_Table_Settings(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle('NEW')
+        self.application=application()
+        self.clicked.connect(lambda x: self.application.settings(main_window))
 
 
 class MainWindow(QMainWindow):
@@ -36,22 +34,18 @@ class MainWindow(QMainWindow):
 
         main_layout.addWidget(Header("Выбери экзамен"), alignment=Qt.AlignmentFlag.AlignHCenter)
 
-        multi_table_button = MainButton("Таблица умножения")
-        multi_table_button.clicked.connect(self.multi_table)
-        buttons.addWidget(multi_table_button)
+
+        for name, application in APPS.items():
+            buttons.addWidget(MainButton(name, application, self))
+
         main_layout.addLayout(buttons)
 
         widget = QWidget()
         widget.setLayout(main_layout)
         self.setCentralWidget(widget)
 
-    def multi_table(self):
-        self.w = Multi_Table_Settings()
-        self.hide()
-        self.w.showMaximized()
 
 
 app = QApplication([])
 window = MainWindow()
 window.showMaximized()
-print(window.size())

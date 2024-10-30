@@ -1,12 +1,14 @@
 from PyQt6.QtWidgets import QWidget
 
 
+
 class SettingsWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Настройки")
+        self.setWindowTitle("Таблица умножения")
 
-    def settings(self, main_window):
-        main_window.hide()
+
+    def launch(self, parent):
+        parent.hide()
         self.showMaximized()
 

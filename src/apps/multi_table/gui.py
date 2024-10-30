@@ -2,14 +2,8 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QCheckBox
 
-from src.utils import Header, MainButton
+from src.utils import Header, MainButton, Exam
 
-
-class MockNext:
-    def launch(self, parent):
-        print('launched')
-        # parent.hide()
-        parent.close()
 
 class CheckBox(QCheckBox):
     def __init__(self, text):
@@ -20,7 +14,7 @@ class CheckBox(QCheckBox):
         self.setStyleSheet("QCheckBox::indicator { width: 50px; height: 50px;}")
 
 
-class SettingsWindow(QWidget):
+class MultiTableSettings(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Таблица умножения")
@@ -37,7 +31,7 @@ class SettingsWindow(QWidget):
 
         main_layout.addLayout(boxes)
 
-        main_layout.addWidget(MainButton("Начать экзамен", MockNext, parent=self),
+        main_layout.addWidget(MainButton("Начать экзамен", Exam, parent=self),
                               alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.setLayout(main_layout)

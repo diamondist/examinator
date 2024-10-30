@@ -1,1 +1,1 @@
-Examnator app
+Examinator app

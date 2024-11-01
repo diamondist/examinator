@@ -20,6 +20,7 @@ class Exam(QWidget):
 
         self.answer_input = AnswerInput()
         self.answer_input.textChanged.connect(self.accept_answer)
+        self.answer_input.returnPressed.connect(self.check_answer)
 
         self.answer_button = AnswerButton()
         self.answer_button.pressed.connect(self.check_answer)
@@ -48,6 +49,7 @@ class Exam(QWidget):
             self.wrong += 1
 
         self.answer_input.setText('')
+        self.answer_input.setFocus()
 
         try:
             self.task = next(self.get_task)

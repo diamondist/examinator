@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
 
         for name, api in APPS.items():
             button = MainButton(api['name'])
-            button.clicked.connect(lambda x: api['settings'](parent=self))
+            button.clicked.connect(lambda x: api['settings'](parent=self, app=api['app']))
             buttons.addWidget(button)
 
         main_layout.addLayout(buttons)

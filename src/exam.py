@@ -4,44 +4,15 @@ from PyQt6.QtWidgets import QWidget, QVBoxLayout, QProgressBar
 from src.elements import TaskText, CorrectMessage, WrongMessage, AnswerInput, AnswerButton, StatsMessage
 
 
-class MockApp:
-    def __init__(self):
-        self.tasks = [
-            {
-                'text': '1 \u00d7 4',
-                'answer': '4',
-            },
-            {
-                'text': '2 \u00d7 4',
-                'answer': '8',
-            },
-            {
-                'text': '3 \u00d7 4',
-                'answer': '12',
-            },
-        ]
-        self.num_tasks = 6
-
-    def get_task(self):
-        for item in self.tasks:
-            item = {
-                'task': item,
-                'num_tasks': self.num_tasks
-            }
-            yield item
-
-
 class Exam(QWidget):
-    def __init__(self):
+    def __init__(self, app):
         super().__init__()
         self.setWindowTitle('Экзамен')
-        self.app = MockApp()
+        self.app = app
         self.get_task = self.app.get_task()
         self.task = next(self.get_task)
         self.answer = ''
-        self.correct = 0
-        self.wrong = 0
-        self.total = 0
+        self.correct, self.wrong, self.total = 0, 0, 0
 
         layout = QVBoxLayout()
 

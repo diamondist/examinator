@@ -6,12 +6,11 @@ from src.exam import Exam
 
 
 class MultiTableSettings(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, app):
         super().__init__()
         self.setWindowTitle("Таблица умножения")
         self.multis = {}
-        for i in range(2, 10):
-            self.multis[i] = False
+        self.app = app
 
         main_layout = QVBoxLayout()
 
@@ -19,6 +18,7 @@ class MultiTableSettings(QWidget):
 
         boxes = QHBoxLayout()
         for i in range(2, 10):
+            self.multis[i] = False
             check_button = MultiButton(str(i))
             check_button.setCheckable(True)
             check_button.pressed.connect(lambda val=i: self.make_settings(val))
@@ -35,7 +35,7 @@ class MultiTableSettings(QWidget):
         self.showMaximized()
 
     def call_exam(self, parent):
-        self.exam = Exam()
+        self.exam = Exam(self.app(self.multis))
         self.hide()
         self.exam.showMaximized()
 

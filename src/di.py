@@ -1,4 +1,4 @@
-from src.apps.multi_table.gui import MultiTableSettings
+from src.apps.multi_table.settings import MultiTableSettings
 from src.apps.multi_table.app import MultiTable
 
 APPS = {

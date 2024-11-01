@@ -6,7 +6,7 @@ from src.exam import Exam
 
 
 class MultiTableSettings(QWidget):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
         self.setWindowTitle("Таблица умножения")
         self.multis = {}
@@ -26,14 +26,18 @@ class MultiTableSettings(QWidget):
 
         main_layout.addLayout(boxes)
 
-        main_layout.addWidget(MainButton("Начать экзамен", Exam, parent=self),
-                              alignment=Qt.AlignmentFlag.AlignHCenter)
+        exam_button = MainButton("Начать экзамен")
+        exam_button.clicked.connect(self.call_exam)
+        main_layout.addWidget(exam_button, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.setLayout(main_layout)
+        parent.hide()
+        self.showMaximized()
+
+    def call_exam(self, parent):
+        self.exam = Exam()
+        self.hide()
+        self.exam.showMaximized()
 
     def make_settings(self, i):
         self.multis[i] = not self.multis[i]
-
-    def launch(self, parent):
-        parent.hide()
-        self.showMaximized()

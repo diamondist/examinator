@@ -1,17 +1,14 @@
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QFont, QPalette, QColor
-from PyQt6.QtWidgets import QPushButton, QLabel, QWidget, QCheckBox, QVBoxLayout, QMessageBox, QLineEdit, QDialog, \
-    QDialogButtonBox
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QPushButton, QLabel, QVBoxLayout, QMessageBox, QLineEdit, QDialog
 
 
 class MainButton(QPushButton):
-    def __init__(self, name, application, parent):
+    def __init__(self, name):
         super().__init__()
         self.setText(name)
         self.setFixedSize(500, 50)
         self.setFont(QFont('Arial', 16))
-        self.application = application()
-        self.clicked.connect(lambda x: self.application.launch(parent))
 
 
 class Header(QLabel):
@@ -50,7 +47,6 @@ class CorrectMessage(QMessageBox):
             'Правильно!',
             'Твой ответ правильный!'
         )
-        # self.setFixedSize(QSize(600, 500))
         self.setFont(QFont('Arial', 56))
 
 
@@ -63,6 +59,7 @@ class WrongMessage(QMessageBox):
             f'Твой ответ {parent.answer} \n Правильный ответ {parent.task['task']['answer']}',
         )
 
+
 class AnswerInput(QLineEdit):
     def __init__(self):
         super().__init__()
@@ -70,12 +67,14 @@ class AnswerInput(QLineEdit):
         self.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.setFont(QFont('Arial', 56))
 
+
 class AnswerButton(QPushButton):
     def __init__(self):
         super().__init__()
         self.setText("Ответить")
         self.setFixedSize(500, 50)
         self.setFont(QFont('Arial', 16))
+
 
 class StatsMessage(QDialog):
     def __init__(self, total, correct, wrong, parent):
@@ -89,7 +88,6 @@ class StatsMessage(QDialog):
         self.layout.addWidget(self.stats, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.stats2, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.stats3, alignment=Qt.AlignmentFlag.AlignHCenter)
-
 
         if correct / total >= 0.8:
             text = 'Экзамен сдан успешно!'

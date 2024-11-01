@@ -1,6 +1,5 @@
-from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QProgressBar, QPushButton, QMessageBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QProgressBar
 
 from src.elements import TaskText, CorrectMessage, WrongMessage, AnswerInput, AnswerButton, StatsMessage
 
@@ -85,7 +84,3 @@ class Exam(QWidget):
         except StopIteration:
             stats = StatsMessage(self.total, self.correct, self.wrong, self)
             stats.exec()
-
-    def launch(self, parent):
-        parent.hide()
-        self.showMaximized()

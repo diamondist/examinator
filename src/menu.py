@@ -1,5 +1,5 @@
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QWidget, QMainWindow, QVBoxLayout
+from PyQt6.QtWidgets import QWidget, QMainWindow, QVBoxLayout, QPushButton
 
 from src.di import APPS
 from src.elements import Header, MainButton
@@ -16,7 +16,9 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(Header("Выбери экзамен"), alignment=Qt.AlignmentFlag.AlignHCenter)
 
         for name, api in APPS.items():
-            buttons.addWidget(MainButton(name=api['name'], application=api['settings'], parent=self))
+            button = MainButton(api['name'])
+            button.clicked.connect(lambda x: api['settings'](parent=self))
+            buttons.addWidget(button)
 
         main_layout.addLayout(buttons)
 

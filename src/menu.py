@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QMainWindow, QVBoxLayout
 
 from src.di import APPS
-from src.utils import Header, MainButton
+from src.elements import Header, MainButton
 
 
 class MainWindow(QMainWindow):

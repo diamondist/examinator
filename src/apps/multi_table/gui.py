@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
-from src.utils import Header, MainButton, CheckButton
+from src.elements import Header, MainButton, MultiButton
 from src.exam import Exam
 
 
@@ -19,7 +19,7 @@ class MultiTableSettings(QWidget):
 
         boxes = QHBoxLayout()
         for i in range(2, 10):
-            check_button = CheckButton(str(i))
+            check_button = MultiButton(str(i))
             check_button.setCheckable(True)
             check_button.pressed.connect(lambda val=i: self.make_settings(val))
             boxes.addWidget(check_button)

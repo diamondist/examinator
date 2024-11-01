@@ -2,7 +2,7 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QProgressBar, QPushButton, QMessageBox
 
-from src.utils import TaskText, CorrectMessage, WrongMessage
+from src.elements import TaskText, CorrectMessage, WrongMessage, AnswerInput, AnswerButton, StatsMessage
 
 
 class MockApp:
@@ -48,17 +48,17 @@ class Exam(QWidget):
 
         self.task_text = TaskText(self.task['task']['text'])
 
-        self.answer_input = QLineEdit()
+        self.answer_input = AnswerInput()
         self.answer_input.textChanged.connect(self.accept_answer)
 
-        self.answer_button = QPushButton("Ответить")
+        self.answer_button = AnswerButton()
         self.answer_button.pressed.connect(self.check_answer)
 
         self.progress = QProgressBar()
 
         layout.addWidget(self.task_text, alignment=Qt.AlignmentFlag.AlignHCenter)
-        layout.addWidget(self.answer_input)
-        layout.addWidget(self.answer_button)
+        layout.addWidget(self.answer_input, alignment=Qt.AlignmentFlag.AlignHCenter)
+        layout.addWidget(self.answer_button, alignment=Qt.AlignmentFlag.AlignHCenter)
         layout.addWidget(self.progress)
 
         self.setLayout(layout)
@@ -77,11 +77,14 @@ class Exam(QWidget):
             WrongMessage(self)
             self.wrong += 1
 
+        self.answer_input.setText('')
+
         try:
             self.task = next(self.get_task)
             self.task_text.setText(self.task['task']['text'])
         except StopIteration:
-            print('finished')
+            stats = StatsMessage(self.total, self.correct, self.wrong, self)
+            stats.exec()
 
     def launch(self, parent):
         parent.hide()
